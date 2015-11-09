@@ -1,0 +1,59 @@
+div.fixed-table-container {
+		margin-left: 28%;
+		margin-top: 5%;
+		width:50% !important;
+}
+input.form-control {
+		width:20% !important;
+		margin-left:40%;
+}
+input.form-control {
+	margin-top: 2%;
+	margin-bottom:2%;
+}
+label.label {
+		width:20% !important;
+		margin-left:40%;
+}
+input {
+	font-size:1.5em !important;
+}
+input[type=submit] {
+		margin-left: 48%;
+}
+div#btnGrp {
+		margin-left:43%;
+		margin-top:3%;
+}
+#displayMessages {
+		margin-left: 40.5%;
+		margin-top: 4%;
+}
+#errorMessage {
+		margin-left: 32%;
+		margin-top: 4%;
+}
+#heading {
+	position: relative;
+}
+#heading{
+	color: #117FB2;
+	position: relative;
+	z-index: 10;
+	-webkit-mask-box-image: -webkit-gradient(linear, 
+			left top, left bottom, 
+			color-stop(20%,rgba(0,0,0,1)), 
+			color-stop(100%,rgba(0,0,0,0)));
+	font-family: customFont;
+	font-size:4em;
+	margin-left: 40%;
+}
+html *
+{
+	font-family: customFont;
+}
+@font-face {
+    font-family: customFont;
+    src: url(fonts/CalligraphyFLF.ttf);
+}
+

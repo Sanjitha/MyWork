@@ -1,55 +1,27 @@
 <html>
 	<head>
 		<title>Appliance Store</title>
-		<style>
-		div.fixed-table-container {
-			margin-left: 28%;
-			margin-top: 5%;
-			width:50% !important;
-		}
-		input.form-control {
-			width:20% !important;
-			margin-left:40%;
-		}
-		label.label {
-			width:20% !important;
-			margin-left:40%;
-		}
-		input[type=submit] {
-			margin-left: 48%;
-		}
-		div#btnGrp {
-			margin-left:44%;
-			margin-top:3%;
-		}
-		#headers {
-			margin-left: 40.5%;
-			margin-top: 4%;
-		}
 		
-		</style>
+		
 		<!-- JavaScript files -->
-	  
-		<script src="External/jquery-1.11.3.min.js"></script>
+	  	<script src="External/jquery-1.11.3.min.js"></script>
 		<script src="External/jquery-1.11.3.js"></script>
 		<script src="External/bootstrap-table.min.js"></script>
 		<script src="External/bootstrap-table.js"></script>
 		<script src="External/bootstrap.min.js"></script>
 		<script src="External/bootstrap.js"></script>
-		
 		<!-- Style sheets -->
+		<link rel="stylesheet" type="text/css" href="home.css">
 		<link rel="stylesheet" href="External/bootstrap-table.min.css">
 		<link rel="stylesheet" href="External/bootstrap.min.css">
-
-
 		
-      <script type = "text/javascript" language = "javascript">
+		<script type = "text/javascript" language = "javascript">
          $(document).ready(function() {
 			$("#display").hide();
-			$("#thankyou").hide();
-			$("#success").hide();
-			$("#error").hide();
-			$("#serverDown").hide();
+			$("#thankyouMessage").hide();
+			$("#successMessage").hide();
+			$("#errorMessage").hide();
+			$("#serverDownMessage").hide();
 			$("form#inputByUser").submit(function(event){
 				event.preventDefault();
 				var keyword=$("input[name=keyword]").val();
@@ -103,18 +75,44 @@
 				});
             });
 			
+			$('#cancelUser').click(function(event){
+				event.preventDefault();
+				$("form#inputByUser").show();
+				$("#display").hide();
+				$("#thankyouMessage").hide();
+				$("#successMessage").hide();
+				$("#errorMessage").hide();
+				$("#serverDownMessage").hide();
+                
+            });
+			
+			$('#saveUser').click(function(event){
+				
+				buildingNum = $('#building').val();
+				street = $('#street').val();
+				apartment = $('#apartment').val();
+				dataToBeSent = { 
+					"selected": selected,
+					"userDetails": {
+							"buildingNum" : parseInt(buildingNum),
+							"street":street,
+							"apartment":apartment
+					}
+				};
+				setTimeout(order(dataToBeSent), 3000);
+				$('#modalUserDetails').modal('hide');
+                
+            });
+			
+			
 			$("input[name=order]").click(function(event){
 				
 				event.preventDefault();
 				$("#display").show();
-				//$("#order").hide();
-				//$("#search").show();
-				//$("#done").show();
-				
-				$("#thankyou").hide();
-				$("#success").hide();
-				$("#error").hide();
-				$("#serverDown").hide();
+				$("#thankyouMessage").hide();
+				$("#successMessage").hide();
+				$("#errorMessage").hide();
+				$("#serverDownMessage").hide();
 				selected = $('#displayTable').bootstrapTable('getAllSelections')[0];
 				var dataToBeSent;
 				$.ajax({
@@ -123,7 +121,6 @@
 					type: "GET",
 					async:false,
 					success: function(response) {
-							alert(response);
 							var buildingNum;
 							var street;
 							var apartment;
@@ -131,38 +128,24 @@
 							
 
 							if(response == "New User") {
-									$('#myModalHorizontal').modal('show');
-									buildingNum = $('#building').val();
-									street = $('#street').val();
-									apartment = $('#apartment').val();
-									dataToBeSent = { 
-										"selected": selected,
-										"userDetails": {
-													"buildingNum" : parseInt(buildingNum),
-													"street":street,
-													"apartment":apartment
-													}
-										};
-								
+									$('#modalUserDetails').modal('show');
 							}
 							else {
-								alert("Existing user");
 								dataToBeSent = { 
 										"selected": selected
 										};
-								
+								order(dataToBeSent);
 							}
 								
 					},
 					error: function(xhr) {
-							//alert(JSON.stringify(xhr));
 							$("#serverDown").show();
 					}
 				});
 				
 				
 
-				setTimeout(order(dataToBeSent), 3000);
+				
 				
 				
             });
@@ -171,10 +154,10 @@
 				event.preventDefault();
 				$("form#inputByUser").show();
 				$("#display").hide();
-				$("#thankyou").hide();
-				$("#success").hide();
-				$("#error").hide();
-				$("#serverDown").hide();
+				$("#thankyouMessage").hide();
+				$("#successMessage").hide();
+				$("#errorMessage").hide();
+				$("#serverDownMessage").hide();
 				
 				
             });
@@ -183,22 +166,21 @@
 				event.preventDefault();
 				$("form#inputByUser").hide();
 				$("#display").hide();
-				$("#thankyou").hide();
-				$("#success").hide();
-				$("#error").hide();
-				$("#serverDown").hide();
+				$("#thankyouMessage").hide();
+				$("#successMessage").hide();
+				$("#errorMessage").hide();
+				$("#serverDownMessage").hide();
 				$.ajax({
 					url: "terminateSession.php",
 					cache: false,
 					type: "GET",
 					success: function(response) {
 							
-								$("#thankyou").show();
+								$("#thankyouMessage").show();
 							
 					},
 					error: function(xhr) {
-							//alert(JSON.stringify(xhr));
-							$("#serverDown").show();
+							$("#serverDownMessage").show();
 					}
 				});
 				
@@ -215,18 +197,17 @@
 					type: "POST",
 					async:false,
 					success: function(response) {
-							alert(response);
 							if(response == "Successful") {
-								$("#success").show();
+								$("#successMessage").show();
 							}
 							else {
-								$("#error").show();
+								$("#errorMessage").show();
 							}
 								
 					},
 					error: function(xhr) {
 							//alert(JSON.stringify(xhr));
-							$("#serverDown").show();
+							$("#serverDownMessage").show();
 					}
 				});
 				}
@@ -235,7 +216,7 @@
 	
 	</head>
 	<body>
-		<h1 style="margin-left: 41%;">Appliance store</h1>
+		<h1 id="heading">Appliance store</h1>
 		<form id="inputByUser">
 			  <div class="form-group">
 				<input type="text" class="form-control" name="keyword" placeholder="Enter the Appliance description" autofocus>
@@ -254,13 +235,13 @@
 				<input type="button" id="done" class="btn btn-primary margin-left" name="done" value="Done" />
 			</div>
 		</div>
-		<div id="headers">
-			<h3 id="thankyou"><span class="label label-info">Thank You!Do visit us again!</span></h3>
-			<h3 id="success"><span class="label label-success">Your order has been placed.</span></h3>
-			<h3 id="error"><span class="label label-warning">There has been a problem placing your order.Please try again.</span></h3>
-			<h3 id="serverDown"><span class="label label-danger">Server down.</span></h3>
+		<div id="displayMessages">
+			<h3 id="thankyouMessage"><span class="label label-info">Thank You!Do visit us again!</span></h3>
+			<h3 id="successMessage"><span class="label label-success">Your order has been placed.</span></h3>
+			<h3 id="errorMessage"><span class="label label-warning">There has been a problem placing your order.Please try again.</span></h3>
+			<h3 id="serverDownMessage"><span class="label label-danger">Server down.</span></h3>
 		</div>
-		<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" 
+		<div class="modal fade" id="modalUserDetails" tabindex="-1" role="dialog" 
 			 aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -301,7 +282,7 @@
 								  for="inputPassword3" >Apartment</label>
 							<div class="col-md-8">
 								<input type="text" 
-									id="apartment" placeholder="apartment"/>
+									id="apartment" placeholder="Apartment"/>
 							</div>
 						  </div>
 						</form>
@@ -310,10 +291,10 @@
 					<!-- Modal Footer -->
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default"
-								data-dismiss="modal">
+								data-dismiss="modal" id="cancelUser">
 									Close
 						</button>
-						<button type="button" class="btn btn-primary">
+						<button type="button" class="btn btn-primary" id="saveUser">
 							Save changes
 						</button>
 					</div>
