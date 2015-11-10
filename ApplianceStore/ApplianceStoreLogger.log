@@ -1,0 +1,120 @@
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Insertion of the user to the customers table successful
+INFO - Insertion of the order into the orders table of the new user successful
+ERROR - User session not set.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Checking if any pending order exists with the chosen appliance.
+INFO - Insertion to the orders table with the existing user successful
+ERROR - User session not set.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Checking if any pending order exists with the chosen appliance.
+INFO - Update to the orders table with the existing user successful
+ERROR - User session not set.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Insertion of the user to the customers table successful
+INFO - Insertion of the order into the orders table of the new user successful
+ERROR - User session not set.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Checking if any pending order exists with the chosen appliance.
+INFO - Insertion to the orders table with the existing user successful
+ERROR - User session not set.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Checking if any pending order exists with the chosen appliance.
+INFO - Update to the orders table with the existing user successful
+ERROR - User session not set.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Insertion of the user to the customers table successful
+INFO - Insertion of the order into the orders table of the new user successful
+ERROR - User session not set.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Checking if any pending order exists with the chosen appliance.
+INFO - Insertion to the orders table with the existing user successful
+ERROR - User session not set.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Insertion of the user to the customers table successful
+INFO - Insertion of the order into the orders table of the new user successful
+ERROR - User session not set.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Insertion of the user to the customers table successful
+INFO - Insertion of the order into the orders table of the new user successful
+ERROR - User session not set.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Checking if any pending order exists with the chosen appliance.
+INFO - Insertion to the orders table with the existing user successful
+ERROR - User session not set.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Insertion of the user to the customers table successful
+INFO - Insertion of the order into the orders table of the new user successful
+ERROR - User session not set.
+INFO - Storing the session variable 'phoneNum' 
+INFO - Connection is established with the database.
+INFO - Fetched the appliance details from the database.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Insertion of the user to the customers table successful
+INFO - Insertion of the order into the orders table of the new user successful
+ERROR - User session not set.
+INFO - Extracting the user session info.
+INFO - Connection is established with the database.
+INFO - Checking if the user is present in the database.
+INFO - Checking if any pending order exists with the chosen appliance.
+INFO - Update to the orders table with the existing user successful
+ERROR - User session not set.

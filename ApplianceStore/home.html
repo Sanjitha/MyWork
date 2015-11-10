@@ -1,8 +1,8 @@
 <html>
 	<head>
 		<title>Appliance Store</title>
-		
-		
+
+
 		<!-- JavaScript files -->
 	  	<script src="External/jquery-1.11.3.min.js"></script>
 		<script src="External/jquery-1.11.3.js"></script>
@@ -14,22 +14,23 @@
 		<link rel="stylesheet" type="text/css" href="home.css">
 		<link rel="stylesheet" href="External/bootstrap-table.min.css">
 		<link rel="stylesheet" href="External/bootstrap.min.css">
-		
+
 		<script type = "text/javascript" language = "javascript">
          $(document).ready(function() {
 			$("#display").hide();
 			$("#thankyouMessage").hide();
 			$("#successMessage").hide();
+			$("#noAppliance").hide();
 			$("#errorMessage").hide();
 			$("#serverDownMessage").hide();
 			$("form#inputByUser").submit(function(event){
 				event.preventDefault();
 				var keyword=$("input[name=keyword]").val();
 				var phoneNum=$("input[name=phoneNum]").val();
-				
+
 				$.ajax({
-					url: "process.php",
-					data: { 
+					url: "php/process.php",
+					data: {
 						"keyword": encodeURIComponent(keyword.trim()),
 						"phoneNum": encodeURIComponent(phoneNum.trim())
 					},
@@ -37,8 +38,13 @@
 					type: "GET",
 					crossDomain: true,
 					success: function(data) {
-							if(data == "No such Appliance") {
-								alert(data+".Please enter valid data.");
+							if(data == "No such Appliance.") {
+								$('#noAppliance').show();
+								$('#noAppliance').delay(2000).fadeOut();
+								$("form#inputByUser").show();
+								$("input[name=keyword]").val("");
+								$("#display").hide();
+
 							}
 							else {
 								$("#display").show();
@@ -67,48 +73,60 @@
 									}, ]
 								});
 							}
-							
+
 					},
 					error: function(xhr) {
 							alert(JSON.stringify(xhr));
 					}
 				});
             });
-			
+
 			$('#cancelUser').click(function(event){
 				event.preventDefault();
 				$("form#inputByUser").show();
 				$("#display").hide();
 				$("#thankyouMessage").hide();
+				$("#noAppliance").hide();
 				$("#successMessage").hide();
 				$("#errorMessage").hide();
 				$("#serverDownMessage").hide();
-                
+
             });
-			
+
+
+
 			$('#saveUser').click(function(event){
-				
-				buildingNum = $('#building').val();
-				street = $('#street').val();
-				apartment = $('#apartment').val();
-				dataToBeSent = { 
-					"selected": selected,
-					"userDetails": {
-							"buildingNum" : parseInt(buildingNum),
-							"street":street,
-							"apartment":apartment
-					}
-				};
-				setTimeout(order(dataToBeSent), 3000);
-				$('#modalUserDetails').modal('hide');
-                
-            });
-			
-			
+
+				if(validate()) {
+					buildingNum = $('#building').val();
+					street = $('#street').val();
+					apartment = $('#apartment').val();
+					dataToBeSent = {
+						"selected": selected,
+						"userDetails": {
+								"buildingNum" : parseInt(buildingNum),
+								"street":street,
+								"apartment":apartment
+						}
+					};
+					setTimeout(order(dataToBeSent), 3000);
+					$('#modalUserDetails').modal('hide');
+		    } else {
+					$('#validationFailed').show();
+					$('#validationFailed').delay(2000).fadeOut();
+					event.preventDefault();
+				}
+
+
+
+      });
+
+
 			$("input[name=order]").click(function(event){
-				
+
 				event.preventDefault();
 				$("#display").show();
+				$("#noAppliance").hide();
 				$("#thankyouMessage").hide();
 				$("#successMessage").hide();
 				$("#errorMessage").hide();
@@ -116,7 +134,7 @@
 				selected = $('#displayTable').bootstrapTable('getAllSelections')[0];
 				var dataToBeSent;
 				$.ajax({
-					url: "check.php",
+					url: "php/check.php",
 					cache: false,
 					type: "GET",
 					async:false,
@@ -124,74 +142,77 @@
 							var buildingNum;
 							var street;
 							var apartment;
-							
-							
+
+
 
 							if(response == "New User") {
 									$('#modalUserDetails').modal('show');
 							}
 							else {
-								dataToBeSent = { 
+								dataToBeSent = {
 										"selected": selected
 										};
 								order(dataToBeSent);
 							}
-								
+
 					},
 					error: function(xhr) {
 							$("#serverDown").show();
 					}
 				});
-				
-				
 
-				
-				
-				
+
+
+
+
+
             });
 			$("input[name=search]").click(function(event){
-				
+
 				event.preventDefault();
 				$("form#inputByUser").show();
 				$("#display").hide();
+				$("#noAppliance").hide();
 				$("#thankyouMessage").hide();
 				$("#successMessage").hide();
 				$("#errorMessage").hide();
 				$("#serverDownMessage").hide();
-				
-				
+
+
             });
 			$("input[name=done]").click(function(event){
-				
+
 				event.preventDefault();
 				$("form#inputByUser").hide();
 				$("#display").hide();
+				$("#noAppliance").hide();
 				$("#thankyouMessage").hide();
 				$("#successMessage").hide();
 				$("#errorMessage").hide();
 				$("#serverDownMessage").hide();
 				$.ajax({
-					url: "terminateSession.php",
+					url: "php/terminateSession.php",
 					cache: false,
 					type: "GET",
 					success: function(response) {
-							
+
 								$("#thankyouMessage").show();
-							
+								$('#thankyouMessage').delay(2000).fadeOut();
+
 					},
 					error: function(xhr) {
 							$("#serverDownMessage").show();
 					}
 				});
-				
-				
+
+
             });
-			
-				
+
+
          });
 		 function order (dataToBeSent) {
 				$.ajax({
-					url: "order.php",
+					url: "php/order.php",
 					data: dataToBeSent,
 					cache: false,
 					type: "POST",
@@ -199,21 +220,38 @@
 					success: function(response) {
 							if(response == "Successful") {
 								$("#successMessage").show();
+								$('#successMessage').delay(2000).fadeOut();
+
 							}
 							else {
 								$("#errorMessage").show();
+								$('#errorMessage').delay(2000).fadeOut();
 							}
-								
+
 					},
 					error: function(xhr) {
 							//alert(JSON.stringify(xhr));
 							$("#serverDownMessage").show();
+							$('#serverDownMessage').delay(2000).fadeOut();
 					}
 				});
 				}
-      </script>	
+				function validate() {
+					buildingNum = $('#building').val();
+					street = $('#street').val();
+					apartment = $('#apartment').val();
+					if(empty(buildingNum) || empty(street) || empty(apartment)) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+				function empty(value) {
+						return value== "";
+				}
+      </script>
    </head>
-	
+
 	</head>
 	<body>
 		<h1 id="heading">Appliance store</h1>
@@ -226,7 +264,7 @@
 			  </div>
 			  <input type="submit" class="btn btn-primary"></input>
 		</form>
-		
+
 		<div id="display">
 			<table id="displayTable" class="col-md-2"></table>
 			<div id="btnGrp">
@@ -236,18 +274,19 @@
 			</div>
 		</div>
 		<div id="displayMessages">
+			<h3 id="noAppliance" style="margin-left:10%;"><span class="label label-warning">No such appliance!!</span></h3>
 			<h3 id="thankyouMessage"><span class="label label-info">Thank You!Do visit us again!</span></h3>
-			<h3 id="successMessage"><span class="label label-success">Your order has been placed.</span></h3>
+			<h3 id="successMessage" style="margin-left:10%;"><span class="label label-success">Your order has been placed.</span></h3>
 			<h3 id="errorMessage"><span class="label label-warning">There has been a problem placing your order.Please try again.</span></h3>
-			<h3 id="serverDownMessage"><span class="label label-danger">Server down.</span></h3>
+			<h3 id="serverDownMessage" style="margin-left:15%;"><span class="label label-danger">Server down.</span></h3>
 		</div>
-		<div class="modal fade" id="modalUserDetails" tabindex="-1" role="dialog" 
+		<div class="modal fade" id="modalUserDetails" tabindex="-1" role="dialog"
 			 aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<!-- Modal Header -->
 					<div class="modal-header">
-						<button type="button" class="close" 
+						<button type="button" class="close"
 						   data-dismiss="modal">
 							   <span aria-hidden="true">&times;</span>
 							   <span class="sr-only">Close</span>
@@ -256,38 +295,39 @@
 							Welcome!Please enter your details.
 						</h4>
 					</div>
-					
+
 					<!-- Modal Body -->
 					<div class="modal-body">
-						
+
 						<form class="form-horizontal" role="form">
 						  <div class="form-group">
 							<label  class="col-md-2 control-label"
 									  for="inputEmail3">Building</label>
 							<div class="col-md-8">
-								<input type="text" 
-								id="building" placeholder="Building"/>
+								<input type="text"
+								id="building" placeholder="Building" required/>
 							</div>
 						  </div>
 						  <div class="form-group">
 							<label class="col-md-2 control-label"
 								  for="inputPassword3" >Street</label>
 							<div class="col-md-8">
-								<input type="text" 
-									id="street" placeholder="Street"/>
+								<input type="text"
+									id="street" placeholder="Street" required/>
 							</div>
 						  </div>
 						  <div class="form-group">
 							<label class="col-md-2 control-label"
 								  for="inputPassword3" >Apartment</label>
 							<div class="col-md-8">
-								<input type="text" 
-									id="apartment" placeholder="Apartment"/>
+								<input type="text"
+									id="apartment" placeholder="Apartment" required/>
 							</div>
 						  </div>
 						</form>
+						<h3 id="validationFailed" style="display:none;"><span class="label label-info">Please enter all the feilds.</span></h3>
 					</div>
-					
+
 					<!-- Modal Footer -->
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default"
@@ -302,7 +342,7 @@
 			</div>
 		</div>
 
-		
+
 	</body>
 
 
