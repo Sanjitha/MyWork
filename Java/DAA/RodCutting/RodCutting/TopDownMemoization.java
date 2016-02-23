@@ -38,8 +38,7 @@ public class TopDownMemoization {
 			double tmp = p[i]+cutRodMemoized(p,n-i,r,s);
 			if (q < tmp) {
 				q = p[i]+cutRodMemoized(p,n-i,r,s);
-				s[n]=i;
-				
+				s[n]=i;				
 			}
 		}
 		//storing the values
