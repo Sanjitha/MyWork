@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Test Suite</title>
+        <script type="text/javascript" src="Testing.js"></script>
+        <script>
+            window.onload = function() {
+                
+                //Use of closure is to encapsulate some information as a "private variable" similar to Java
+                function Increementer() {
+                    var count = 0;;
+                    this.getCount = function(){
+                        return count;
+                    };
+                    this.increement = function(){
+                        count++;
+                    };
+                }
+                
+                obj1 = new Increementer();
+                obj1.increement();
+                assert(obj1.getCount()==1,"Accessing count using getCount()");
+                assert(obj1.count,"Cannot Access count");
+            };
+            
+        </script>
+        <style>
+            #results li.pass { color: green; }
+            #results li.fail { color: red; }
+        </style>
+    </head>
+    <body>
+        <ul id="results"></ul>
+    </body>
+</html>
