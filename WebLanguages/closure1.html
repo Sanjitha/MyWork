@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Test Suite</title>
+        <script type="text/javascript" src="Testing.js"></script>
+        <script>
+            window.onload = function() {
+                var outerValue = "ninja";
+                var later;
+
+                function outerFunction() {
+                    var innerValue = "samurai";
+                    function innerFunction(parameters)  {
+                        assert(outerValue,"I can see ninja");
+                        assert(innerValue,"I can see samurai");  
+                        assert(parameters,"I can see robin");  
+                        assert(tooLate,"I can see ronin");  
+                    }
+                    later = innerFunction;
+                }
+
+                assert(!tooLate,"Can't forward reference a variable that has not been declared");
+
+                var tooLate="ronin";
+                outerFunction(); 
+
+                later("robin");
+            };
+            
+        </script>
+        <style>
+            #results li.pass { color: green; }
+            #results li.fail { color: red; }
+        </style>
+    </head>
+    <body>
+        <ul id="results"></ul>
+    </body>
+</html>
