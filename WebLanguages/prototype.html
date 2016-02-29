@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Test Suite</title>
+        <script type="text/javascript" src="Testing.js"></script>
+        <script>
+            window.onload = function() {
+                
+                //Use of closure is to encapsulate some information as a "private variable" similar to Java
+                function Ninja() {}
+                
+                Ninja.prototype.swingSword = function() {
+                    return true;
+                }
+                
+                obj1 = Ninja();
+                
+                assert(obj1,"No instance created")
+                obj2 = new Ninja();
+                assert(obj2 && obj2.swingSword && obj2.swingSword(),"Instance created")
+            };
+            
+        </script>
+        <style>
+            #results li.pass { color: green; }
+            #results li.fail { color: red; }
+        </style>
+    </head>
+    <body>
+        <ul id="results"></ul>
+    </body>
+</html>
