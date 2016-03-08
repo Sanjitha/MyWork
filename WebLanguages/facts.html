@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script>
+            (function(){
+              var a = b = 3;
+            })();
+            /*
+            Equivalent to :
+                b =3;
+                var a =b;
+            
+            b is a global variable hence b is accessible outside its scope
+            a is a local variable as it is preceded by var
+            */
+            console.log("a defined? " + (typeof a !== 'undefined'));
+            console.log("b defined? " + (typeof b !== 'undefined'));
+        </script>
+        </head>
+</html>
