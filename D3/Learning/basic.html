@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>D3</title>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+    </head>
+    <body>
+        <script>
+            //d3 is an object with complex collection of data and functions
+            console.log(d3);
+            
+            //Manipulation of DOM using D3
+            d3.select("body")
+                .append("p")
+                .text("Hello D3!!")
+                .style("color","red");
+            
+            //svg elements for creating graphics
+            //always associate width and height with svg to get the correct dimensions
+            //assign to a variable as code might get complex 
+            var canvas = d3.select("body")
+                        .append("svg")
+                        .attr("width",400)
+                        .attr("height",500);
+            
+            //Data binding to d3 elements
+            //selectAll is similar to select but it chooses all elements
+            var nums = [20,30,40];
+            var bars = canvas.selectAll("rect") //No rects for now, returns an empty array array or selection
+                                .data(nums) //bind the data
+                                .enter() //returns placeholders for each data element for which there are no DOM elements
+                                .append("rect")
+                                .attr("width",function(d) {
+                                    return d*10;
+                                })
+                                .attr("height",40)
+                                .attr("y",function(d,i) {
+                                    return i*100;
+                                })
+                                .style("fill","blue");
+            
+                
+            
+        </script>
+    </body>
+</html>
